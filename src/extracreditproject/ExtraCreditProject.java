@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package extracreditproject;
 
 /**
- *
- * @author 958016796
+ * Main class for the whole project
+ * 
+ * @author Phuc Hong Le
+ * @author Son Minh Tran
+ * @version 6/7/2017
  */
 public class ExtraCreditProject {
 
     /**
+     * 
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
-    
+    }   
 }
