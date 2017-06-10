@@ -6,6 +6,7 @@
 package dataaccess;
 
 import domain.Course;
+import dataaccess.AbstractGraph;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -20,14 +22,14 @@ import java.util.Arrays;
  */
 public class DataHandling {
 
-    public ArrayList<Course> readFile(String fileName) throws FileNotFoundException, IOException {
+    public static ArrayList<Course> readFile(String fileName) throws FileNotFoundException, IOException {
         File file = new File(fileName);
         Course newCourse = null;
         int counter = 0;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String data = reader.readLine();
         ArrayList<Course> result = new ArrayList<>();
-        while (data != null) {
+        while (!data.equals("")) {
             switch(counter % 3){
                 case 0:
                     newCourse = new Course();
@@ -47,7 +49,22 @@ public class DataHandling {
                     break;
             }           
             counter++;
+            data = reader.readLine();
         }
+        return result;
+    }
+    
+    public static UnweightedGraph<Course> getGraphCourse(List<Course> courses){
+        ArrayList<Edge> edges = new ArrayList<>();
+        UnweightedGraph<Course> result;
+        for (int i = 0; i < courses.size(); i++) {
+            for (Integer num : courses.get(i).prerequisites) {
+                if (num != -1) {
+                    edges.add(new Edge(num, i));
+                }               
+            }
+        }
+        result = new UnweightedGraph<>(courses, edges);
         return result;
     }
     
