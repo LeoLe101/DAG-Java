@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  * @author Son Tran
  */
 public class main {
+    
+    
     public static void main(String[] args){
         UnweightedGraph<Course> graph;
         ArrayList<Course> courseList = null;
@@ -26,7 +28,10 @@ public class main {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         graph = DataHandling.getGraphCourse(courseList);
-        graph.printEdges();
+        ArrayList<Course> sortedGraph;
+        sortedGraph = graph.topologicalSort(graph.getSize());
+//        graph.printEdges();
+        System.out.println(sortedGraph);
         System.out.println("done");
     }
 }
