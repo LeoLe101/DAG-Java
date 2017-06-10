@@ -28,10 +28,15 @@ public class main {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         graph = DataHandling.getGraphCourse(courseList);
-        ArrayList<Course> sortedGraph;
-        sortedGraph = graph.topologicalSort(graph.getSize());
+        ArrayList<Integer> sortedGraph;
+        
+        sortedGraph = graph.topologicalSort();
+        for (int i = 0; i < sortedGraph.size(); i++) {
+            System.out.println(courseList.get(sortedGraph.get(i)).getCourseName());
+        }
+        
 //        graph.printEdges();
-        System.out.println(sortedGraph);
+//        System.out.println(graph);
         System.out.println("done");
     }
 }

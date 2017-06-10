@@ -1,6 +1,5 @@
 package business;
 
-import dataaccess.Sorting;
 
 /**
  * The class the that will 
@@ -11,7 +10,6 @@ import dataaccess.Sorting;
  */
 public class CourseManager {
 
-    private Sorting sort;
     
     public CourseManager() {
     }

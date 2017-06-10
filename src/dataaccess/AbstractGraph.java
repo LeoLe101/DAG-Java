@@ -110,7 +110,7 @@ public abstract class AbstractGraph<V> implements Graph<V> {
     public int getIndex(V v) {
         return vertices.indexOf(v);
     }
-    
+
     @Override
     /**
      * Return the neighbors of the specified vertex
@@ -238,28 +238,28 @@ public abstract class AbstractGraph<V> implements Graph<V> {
         }
     }
 
-    public ArrayList<Course> topologicalSort(int v) {
-        List<Integer> searchOrder = new ArrayList<>();
-        ArrayList<Course> output = new ArrayList<>();
-        int[] parent = new int[vertices.size()];
+    public ArrayList<Integer> topologicalSort() {
         Stack stack = new Stack();
-        //restart the vertices as not visited
-        for (int i = 0; i < parent.length; i++) {
-            parent[i] = -1; // Initialize parent[i] to -1
-        }
-        // Mark visited vertices
-        boolean[] isVisited = new boolean[vertices.size()];
+        ArrayList<Integer> output = new ArrayList<>();
+        // Mark all the vertices as not visited
+        boolean visited[] = new boolean[vertices.size()];
         for (int i = 0; i < vertices.size(); i++) {
-            isVisited[i] = false;
+            visited[i] = false;
         }
+        // Call the recursive helper function to store
+        // Topological Sort starting from all vertices
+        // one by one
         for (int i = 0; i < vertices.size(); i++) {
-            if (isVisited[i] == false) {
-                // Recursively search for its adjacent vertices
-                topologicalSorting(v, parent, searchOrder, isVisited, stack);
+            if (visited[i] == false) {
+                topologicalSorting(i, visited, stack);
             }
         }
+        // Print contents of stack
+        while (stack.empty() == false) {
+            System.out.print(stack.pop() + " ");
+        }
         while (!stack.isEmpty()) {
-            output.add((Course) stack.pop());
+            output.add((Integer) stack.pop());
         }
         return output;
     }
@@ -267,18 +267,17 @@ public abstract class AbstractGraph<V> implements Graph<V> {
     /**
      * Recursive method for DFS search
      */
-    private void topologicalSorting(int u, int[] parent, List<Integer> visted,
-            boolean[] isVisited, Stack stack) {
-        // Store the visited vertex
-        visted.add(u);
-        isVisited[u] = true; // Vertex v visited
-        // Get all the adjacent vertices from the current vertex
-        for (Edge e : neighbors.get(u)) {
-            if (!isVisited[e.v]) {
-                parent[e.v] = u; // The parent of vertex e.v is u
-                topologicalSorting(e.v, parent, visted, isVisited, stack); // Recursive search
+    private void topologicalSorting(int u, boolean visited[], Stack stack) {
+        // Mark the current node as visited.
+        visited[u] = true;
+        // Recur for all the vertices adjacent to this
+        // vertex
+        for (int i = 0; i < vertices.size(); i++) {
+            if (!visited[i]){
+                topologicalSorting(i, visited, stack);
             }
         }
+        // Push current vertex to stack which stores result
         stack.push(new Integer(u));
     }
 
@@ -407,5 +406,5 @@ public abstract class AbstractGraph<V> implements Graph<V> {
             System.out.println();
         }
     }
-    
+
 }
