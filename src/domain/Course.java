@@ -17,11 +17,15 @@ public class Course {
     public int credit;
     public ArrayList<Integer> prerequisites;
     
+    public Course() {
+    }
     public Course(String courseName, int credit, ArrayList<Integer> prerequisites) {
         this.courseName = courseName;
         this.credit = credit;
         this.prerequisites = prerequisites;
     }
+
+    
 
     public ArrayList<Integer> getPrerequisites() {
         return prerequisites;
