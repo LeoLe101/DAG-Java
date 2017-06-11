@@ -255,9 +255,7 @@ public abstract class AbstractGraph<V> implements Graph<V> {
             }
         }
         // Print contents of stack
-        while (stack.empty() == false) {
-            System.out.print(stack.pop() + " ");
-        }
+
         while (!stack.isEmpty()) {
             output.add((Integer) stack.pop());
         }
@@ -272,13 +270,18 @@ public abstract class AbstractGraph<V> implements Graph<V> {
         visited[u] = true;
         // Recur for all the vertices adjacent to this
         // vertex
-        for (int i = 0; i < vertices.size(); i++) {
-            if (!visited[i]){
-                topologicalSorting(i, visited, stack);
+//        for (int i = 0; i < vertices.size(); i++) {
+//            if (!visited[i]){
+//                topologicalSorting(i, visited, stack);
+//            }
+//        }
+        for (Integer nei : this.getNeighbors(u)) {
+            if (!visited[nei]) {
+                topologicalSorting(nei, visited, stack);
             }
+            // Push current vertex to stack which stores result
+            stack.push(new Integer(nei));
         }
-        // Push current vertex to stack which stores result
-        stack.push(new Integer(u));
     }
 
     @Override
@@ -288,7 +291,8 @@ public abstract class AbstractGraph<V> implements Graph<V> {
     /**
      * To be discussed in Section 28.7
      */
-    public Tree bfs(int v) {
+    public Tree bfs(int v
+    ) {
         List<Integer> searchOrder = new ArrayList<>();
         int[] parent = new int[vertices.size()];
         for (int i = 0; i < parent.length; i++) {
